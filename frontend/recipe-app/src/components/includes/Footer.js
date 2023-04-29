@@ -7,7 +7,7 @@ function Footer_() {
         <Footer>
             <h1 className="title"><Link to="/">Recipe App</Link></h1>
             <p className="code">
-                <a href="https://github.com/mohammedshajahan7/food-recipes-app">complete source-code</a>
+                <a target='_blank' href="https://github.com/mohammedshajahan7/food-recipes-app">complete source-code</a>
             </p>
         </Footer>
     )
