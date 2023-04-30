@@ -148,7 +148,7 @@ def update_recipe(request, slug):
     if request.user != recipe.owner:
         return Response({
             'status_code': 403,
-            'message': 'You are not authorized to edit this recipe',
+            'message': 'You are not owner of this recipe',
         }, status=403)
 
     name = request.data.get('name')
