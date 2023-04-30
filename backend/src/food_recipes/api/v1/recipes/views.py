@@ -150,46 +150,41 @@ def update_recipe(request, slug):
             'status_code': 403,
             'message': 'You are not owner of this recipe',
         }, status=403)
-
-    name = request.data.get('name')
-    description = request.data.get('description')
+    
+    # Get the category id from the request data
     category_id = request.data.get('category_id')
-    image = request.FILES.get('image')
 
-    # Make sure the category_id is valid
+    # If category_id is provided, update the category field
     if category_id:
         try:
-            category_id = int(category_id)
             category = Category.objects.get(id=category_id)
-        except ValueError:
-            return Response({
-                'status_code': 400,
-                'message': 'category_id must be an integer',
-            }, status=400)
+            recipe.category = category
         except Category.DoesNotExist:
             return Response({
                 'status_code': 400,
                 'message': f'Category with id {category_id} does not exist',
             }, status=400)
-        recipe.category = category
-
-    if name:
-        recipe.name = name
-
-    if description:
-        recipe.description = description
-
-    if image:
-        recipe.image = image
-
-    recipe.save()
 
     context = {
         "request": request
     }
 
-    serializer = RecipeSerializer(recipe, context)
-    return Response(serializer.data)
+    serializer = RecipeSerializer(recipe, data=request.data, partial=True, context=context)
+
+    if serializer.is_valid():
+        serializer.save()
+        response_data = {
+            "statuc_code": 6000,
+            "data": serializer.data
+        }
+        return Response(response_data)
+    
+    response_data = {
+        "statuc_code": 6001,
+         "error": serializer.errors,
+    }
+
+    return Response(response_data)
 
 
 @api_view(["POST"])
