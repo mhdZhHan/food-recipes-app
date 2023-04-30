@@ -45,7 +45,7 @@ export default function Recipes_() {
                         title: error.response.statusText,
                         text: 'Do you want to continue please login.',
                         icon: 'error',
-                        confirmButtonText: 'Login'
+                        confirmButtonText: 'Ok'
                     })
                 }
             })
@@ -104,7 +104,7 @@ export default function Recipes_() {
                                     <ImageContainer>
                                         <img src={recipe?.image} alt={recipe?.name} />
                                         <span className='icon' 
-                                            onClick={()=> handlefavorite(recipe?.slug, recipe?.is_favorite)}
+                                            onClick={()=> handlefavorite(recipe?.slug)}
                                         >
                                             {
                                                 recipe?.is_favorite == true ? (

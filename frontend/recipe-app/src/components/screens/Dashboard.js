@@ -24,7 +24,7 @@ function Dashboard_() {
     )
 
     // user data
-    const { data: userDetails, loading: userloading } = useQuery(['user_data'], 
+    const { data: userDetails, loading: userloading } = useQuery(['user_details'], 
         dataFetching.getUserDetails
     )
 

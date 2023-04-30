@@ -38,7 +38,6 @@ function CreateRecipe_() {
         const config = {
             headers: {
                 "Authorization": `Bearer ${user_data?.access}`,
-                "content-type": 'multipart/form-data',
             }
         }
 

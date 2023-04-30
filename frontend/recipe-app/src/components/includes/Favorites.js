@@ -53,10 +53,10 @@ export default function Favorites_() {
                                     <ImageContainer>
                                         <img src={recipe?.image} alt={recipe?.name} />
                                         <span className='icon' 
-                                            onClick={()=> handlefavorite(recipe?.slug, recipe?.is_favourite)}
+                                            onClick={()=> handlefavorite(recipe?.slug)}
                                         >
                                             <AiFillHeart 
-                                                    size={25} color='red'     
+                                                size={25} color='red'     
                                             />
                                         </span>
                                     </ImageContainer>
@@ -99,7 +99,7 @@ const Favorites = styled.section`
 const RecipesList = styled.div`
     ul {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
             gap: 1.5rem;
             align-items: stretch;
             justify-content: center;
@@ -125,6 +125,7 @@ const ImageContainer = styled.div`
         display: inline-block;
         border: 1px solid #000;
         margin-bottom: 15px;
+        object-fit: cover;
     }
     span.icon {
         display: flex;
