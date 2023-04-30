@@ -14,6 +14,7 @@ import { RECIPE_API_URL } from '../../axiosConfig'
 function UpdateRecipe_() {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const [defaultimage, setDefaultImage] = useState(null)
     const [image, setImage] = useState(null)
     const [category, setcategory] = useState('')
 
@@ -29,7 +30,7 @@ function UpdateRecipe_() {
     useEffect(()=> {
         setName(recipe?.name || '')
         setDescription(recipe?.description || '')
-        setImage(recipe?.image || null)
+        setDefaultImage(recipe?.image || null)
         setcategory(recipe?.id_category|| '')
     }, [recipe])
 
@@ -41,6 +42,7 @@ function UpdateRecipe_() {
         const config = {
             headers: {
                 "Authorization": `Bearer ${user_data?.access}`,
+                "content-type": 'multipart/form-data',
             }
         }
 
@@ -64,6 +66,8 @@ function UpdateRecipe_() {
 
         const formData = new FormData()
 
+        console.log(image)
+
         formData.append("name", name)
         formData.append("description", description)
         if (image) {
@@ -81,7 +85,7 @@ function UpdateRecipe_() {
 
         axios.put(`recipes/edit/${recipe?.slug}/`, formData, config)
             .then((response) => {
-                console.log(response)
+                console.log(response.data)
                 navigate('/dashboard')
             })
             .catch((error) => {
@@ -131,7 +135,11 @@ function UpdateRecipe_() {
                                 src={image}
                                 onChange={(event)=>setImage(event.target.files[0])} 
                             />
-                            {image && <img src={image} alt={name} />}
+                            {
+                                image ? 
+                                (<img src={image} alt="New image" />) : 
+                                (<img src={defaultimage} alt={name} />)
+                            }
                         </div>
                     </div>
                     <div className="select_box">
