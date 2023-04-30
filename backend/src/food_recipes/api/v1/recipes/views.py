@@ -126,7 +126,10 @@ def create_recipe(request):
         category=category,
         owner=request.user,
     )
-    serializer = RecipeSerializer(recipe)
+    context = {
+        "request": request
+    }
+    serializer = RecipeSerializer(recipe, context=context)
     return Response(serializer.data, status=201)
 
 
@@ -181,7 +184,11 @@ def update_recipe(request, slug):
 
     recipe.save()
 
-    serializer = RecipeSerializer(recipe)
+    context = {
+        "request": request
+    }
+
+    serializer = RecipeSerializer(recipe, context)
     return Response(serializer.data)
 
 
